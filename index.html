@@ -1,23 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Draggable Cards</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horizontally Draggable Elements</title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .dragdrop {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 20px;
+      margin: 0 10px;
+      background-color: #f9f9f9;
+      cursor: move;
+      user-select: none;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .draggable-placeholder {
+      border: 1px dashed #ccc;
+      border-radius: 4px;
+      padding: 20px;
+      margin: 0 10px;
+      background-color: #f9f9f9;
+      opacity: 0.5;
+      user-select: none;
+      transition: all 0.3s ease;
+    }
+  </style>
 </head>
+
 <body>
-    <div class="card-container">
-        <div class="card" draggable="true">
-            <p>Card 1</p>
-        </div>
-        <div class="card" draggable="true">
-            <p>Card 2</p>
-        </div>
-        <div class="card" draggable="true">
-            <p>Card 3</p>
-        </div>
-    </div>
-    <script src="scripts.js"></script>
+  <div class="dragdrop">
+    <div class="card">Item 1</div>
+    <div class="card">Item 2</div>
+    <div class="card">Item 3</div>
+  </div>
+  
+  
+  (function ($) {
+    "use strict";
+
+    $(".dragdrop").sortable({
+      axis: "x",
+      items: ".card",
+      revert: true,
+      placeholder: "draggable-placeholder",
+      forcePlaceholderSize: true,
+      opacity: 0.92,
+      cursor: "move"
+    });
+  })(jQuery);
 </body>
 </html>
