@@ -53,14 +53,20 @@
     <div class="card" data-card-id="2">Item 2</div>
     <div class="card" data-card-id="3">Item 3</div>
     <div class="card" data-card-id="4">Item 4</div>
+    <div class="card" data-card-id="5">Item 5</div>
   </div>
   
   <script>
     $(function() {
       $(".dragdrop").sortable({
         axis: "x",
+        
+        delay: 300,
         items: ".card",
+        tolerance: "pointer",
+        distance: 1,
         revert: true,
+        revertDuration: 100,
         placeholder: "draggable-placeholder",
         forcePlaceholderSize: true,
         opacity: 0.92,
