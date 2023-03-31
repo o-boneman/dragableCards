@@ -49,24 +49,44 @@
 
 <body>
   <div class="dragdrop">
-    <div class="card">Item 1</div>
-    <div class="card">Item 2</div>
-    <div class="card">Item 3</div>
+    <div class="card" data-card-id="1">Item 1</div>
+    <div class="card" data-card-id="2">Item 2</div>
+    <div class="card" data-card-id="3">Item 3</div>
+    <div class="card" data-card-id="4">Item 4</div>
   </div>
   
-  
-  (function ($) {
-    "use strict";
+  <script>
+    $(function() {
+      $(".dragdrop").sortable({
+        axis: "x",
+        items: ".card",
+        revert: true,
+        placeholder: "draggable-placeholder",
+        forcePlaceholderSize: true,
+        opacity: 0.92,
+        cursor: "move",
+        stop: function(event, ui) {
+          // Get the new order of the cards
+          var order = $(this).sortable("toArray", { attribute: "data-card-id" });
 
-    $(".dragdrop").sortable({
-      axis: "x",
-      items: ".card",
-      revert: true,
-      placeholder: "draggable-placeholder",
-      forcePlaceholderSize: true,
-      opacity: 0.92,
-      cursor: "move"
+          // Convert the order array to a JSON string
+          var orderJson = JSON.stringify(order);
+
+          // Send the order to the server using an AJAX request
+          $.ajax({
+            type: "POST",
+            url: "update_order.php",
+            data: { order: orderJson },
+            success: function() {
+              console.log("Order updated successfully");
+            },
+            error: function() {
+              console.log("Error updating order");
+            }
+          });
+        }
+      });
     });
-  })(jQuery);
+  </script>
 </body>
 </html>
