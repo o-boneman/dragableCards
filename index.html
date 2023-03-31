@@ -66,6 +66,11 @@
         opacity: 0.92,
         cursor: "move",
         stop: function(event, ui) {
+          // Update the data-card-id attribute to match the actual card position order
+          $(".card").each(function(index) {
+            $(this).attr("data-card-id", index + 1);
+          });
+
           // Get the new order of the cards
           var order = $(this).sortable("toArray", { attribute: "data-card-id" });
 
@@ -81,6 +86,7 @@
               console.log("Order updated successfully");
             },
             error: function() {
+            	console.log(order);
               console.log("Error updating order");
             }
           });
